@@ -1,8 +1,8 @@
 class Encryptor
 
-  def initialize
-    @key = KeyGenerator.new
-    @offset = OffsetGenerator.new
+  def initialize(key = nil, date = nil)
+    @key = key
+    @date = date
   end
 
   def characters
@@ -23,8 +23,8 @@ class Encryptor
   end
 
   def build_rotations
-    keys = @key.build_key_array
-    offsets = @offset.build_offsets
+    @key == nil ? keys = KeyGenerator.new.build_key_array : keys = KeyGenerator.new(@key).build_key_array
+    @date == nil ? offsets = OffsetGenerator.new.build_offsets : offsets = OffsetGenerator.new(@date).build_offsets
     rotations = keys.zip(offsets)
     rotations.map { |item|  item[0] + item[1] }
   end

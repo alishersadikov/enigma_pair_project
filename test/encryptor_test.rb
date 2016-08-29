@@ -42,4 +42,9 @@ class EncryptorTest < Minitest::Test
   def test_it_encrypts_a_mixed_string
     assert_instance_of String, encryptor.encrypt_string("A!@ *x>+$")
   end
+
+  def test_it_encrypts_string_when_key_and_date_passed_in
+    encryptor = Encryptor.new("12345", "030415")
+    assert_equal "o ,;", encryptor.encrypt_string("abcd")
+  end
 end

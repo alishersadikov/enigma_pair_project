@@ -26,7 +26,4 @@ class OffsetGeneratorTest < Minitest::Test
     assert_instance_of Array, offset.build_offsets
     assert_equal 4, offset.build_offsets.size
   end
-
-
-
 end

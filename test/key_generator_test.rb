@@ -30,6 +30,6 @@ class KeyGeneratorTest < Minitest::Test
     key1 = KeyGenerator.new("4321234567")
 
     assert_equal [12, 23, 34, 45], key.build_key_array
-    assert_equal "", key1.build_key_array
+    assert_equal [43, 32, 21, 12], key1.build_key_array
   end
 end

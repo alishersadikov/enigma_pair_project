@@ -1,12 +1,12 @@
 class OffsetGenerator
   attr_reader :date
 
-  def initialize(date = 0)
+  def initialize(date = nil)
     @date = date
   end
 
   def generate_todays_date
-    @date == 0 ? @date = Date.today.strftime("%D").split("/").join : @date
+    @date == nil ? @date = Date.today.strftime("%D").split("/").join : @date
   end
 
   def build_offsets
