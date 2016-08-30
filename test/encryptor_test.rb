@@ -1,6 +1,5 @@
 require './test/test_helper'
-require './lib/offset_generator'
-require './lib/key_generator'
+
 require './lib/encryptor'
 
 class EncryptorTest < Minitest::Test
@@ -46,5 +45,30 @@ class EncryptorTest < Minitest::Test
   def test_it_encrypts_string_when_key_and_date_passed_in
     encryptor = Encryptor.new("12345", "030415")
     assert_equal "o ,;", encryptor.encrypt_string("abcd")
+  end
+
+  def test_it_decrypts_letter
+    encryptor = Encryptor.new("12345", "030415")
+    assert_equal "b", encryptor.decrypt_letter("c", 1)
+  end
+
+  def test_it_decrypts_string
+    encryptor = Encryptor.new("12345", "030415")
+    assert_equal "v#5C\"", encryptor.encrypt_string("hello")
+    assert_equal "hello", encryptor.decrypt_string("v#5C\"")
+  end
+
+  def test_it_cracks
+    encryptor = Encryptor.new("12345", "111111")
+
+    assert_equal "X$5?$FDGx(<Ny2Dpu-D4##Do!(<;u1D;u+5B0HRNu--N>H", encryptor.encrypt_string('Hello, this is Ben and Alisher hello .. end ..')
+    # assert_equal ".. end ..", encryptor.decrypt_string("9*lzy`lC9")
+  end
+
+  def test_it_cracks_again
+    encryptor = Encryptor.new("08715", "082916")
+    expected = "Sa]&z(l.sed5tolWpjlvy`lVwed\"pnlC9wV(owzC"
+    actual = encryptor.encrypt_string('Hello, this is Ben and Alisher .. end ..')
+    assert_equal expected, actual
   end
 end

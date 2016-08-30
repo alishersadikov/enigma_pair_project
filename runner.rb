@@ -20,16 +20,15 @@ class Runner
 
   key = KeyGenerator.new
   offset = OffsetGenerator.new
-  encryptor = Encryptor.new
 
-  string_key = key.generate_random_digits
-
+  random_key = key.generate_random_digits
+  encryptor = Encryptor.new(random_key)
 
   string = File.read(input_file)
 
   encrypted_text = encryptor.encrypt_string(string)
   File.write(output_file, encrypted_text)
 
-  puts "Created '#{output_file}' with the #{string_key} and date #{Time.now.strftime("%d%m%y")}"
+  puts "Created '#{output_file}' with the #{random_key} and date #{Time.now.strftime("%m%d%y")}"
 
 end

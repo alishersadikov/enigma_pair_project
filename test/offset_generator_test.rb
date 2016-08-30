@@ -8,7 +8,7 @@ class OffsetGeneratorTest < Minitest::Test
     assert_equal "020315", offset.date
   end
 
-  def test_it_build_offset_array_for_passed_date
+  def test_it_builds_offset_array_for_passed_date
     offset = OffsetGenerator.new("020315")
     assert_equal [9, 2, 2, 5], offset.build_offsets
   end
