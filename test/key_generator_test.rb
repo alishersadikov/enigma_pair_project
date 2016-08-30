@@ -31,5 +31,6 @@ class KeyGeneratorTest < Minitest::Test
 
     assert_equal [12, 23, 34, 45], key.build_key_array
     assert_equal [43, 32, 21, 12], key1.build_key_array
+    binding.pry
   end
 end

@@ -1,6 +1,4 @@
 require './lib/encryptor'
-require  "./lib/key_generator"
-require  "./lib/offset_generator"
 require  './lib/crack'
 
 
