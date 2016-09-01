@@ -79,10 +79,4 @@ class EncryptorTest < Minitest::Test
     encryptor = Encryptor.new("12345")
     assert_equal "ABcd1234!", encryptor.decrypt_string("P^1>@MZh2")
   end
-
-  # def test_it_does
-  #   encryptor = Encryptor.new("58294")
-  #   assert_equal "3c?qVy=$Yq=.Ey9qVq8z`u1 `,PqRbP:", encryptor.encrypt_string("Never trust a person who ..end..")
-  #   assert_equal "", encryptor.decrypt_string("3c?qVy=$Yq=.Ey9qVq8z`u1 `,PqRbP:")
-  # end
 end
