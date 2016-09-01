@@ -13,7 +13,7 @@ class CrackRunner
 
   crack = Crack.new(date)
 
-  encrypted_text = File.read(encrypted_file)
+  encrypted_text = File.read(encrypted_file).chomp
 
   cracked_text = crack.crack_string(encrypted_text)
   File.write(cracked_file,  cracked_text)

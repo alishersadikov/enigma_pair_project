@@ -1,4 +1,5 @@
 require './lib/encryptor'
+require './lib/offset_generator'
 
 class Crack
   attr_reader :date, :key
@@ -17,10 +18,14 @@ class Crack
     adjusted_rotations(string, rotations)
   end
 
+  def standard_epilogue
+    "..end.."
+  end
+
   def zip_characters(string)
-    standard_epilogue = 'd ..'.reverse.chars
-    encrypted_epilogue = string[-4..-1].reverse.chars
-    zipped_chars = standard_epilogue.zip(encrypted_epilogue)
+    standard_ending = standard_epilogue[-4..-1].reverse.chars
+    encrypted_ending = string[-4..-1].reverse.chars
+    zipped_chars = standard_ending.zip(encrypted_ending)
   end
 
   def adjusted_rotations(string, rotations)
@@ -40,13 +45,22 @@ class Crack
   end
 
   def calculate_key(string)
+    rotations = crack_rotations(string)
+    zipped_array = rotations.zip(build_date_offsets)
+    key_array = zipped_array.map { |item|  item[0] - item[1] }
+    build_calculated_key_string(key_array)
+  end
+
+  def build_date_offsets
     date = OffsetGenerator.new(@date)
     offsets = date.build_offsets
-    rotations = crack_rotations(string)
-    zipped_array = rotations.zip(offsets)
-    key_array = zipped_array.map do |item|
-      item[0] - item[1]
+  end
+
+  def build_calculated_key_string(key_array)
+    key_four_char = key_array.map do |num|
+      num.to_s.rjust(2, '0')[0]
     end
-    @key = key_array.map  { |sub_key| sub_key.to_s.rjust(2, '0')[0]}.join + key_array[-1].to_s[1]
+    key_last_char = key_array[-1].to_s[1]
+    @key = key_four_char.join + key_last_char
   end
 end

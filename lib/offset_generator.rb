@@ -6,7 +6,7 @@ class OffsetGenerator
   end
 
   def generate_todays_date
-    @date == nil ? @date = Date.today.strftime("%D").split("/").join : @date
+    @date != nil ? @date : @date = Date.today.strftime("%D").split("/").join
   end
 
   def build_offsets

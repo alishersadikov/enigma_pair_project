@@ -16,13 +16,11 @@ class OffsetGeneratorTest < Minitest::Test
   def test_it_generates_todays_date_if_no_paramater_passed
     offset = OffsetGenerator.new
     expected = Date.today.strftime("%D").split("/").join
-
     assert_equal expected, offset.generate_todays_date
   end
 
   def test_it_builds_offset_array_for_todays_date
     offset = OffsetGenerator.new
-
     assert_instance_of Array, offset.build_offsets
     assert_equal 4, offset.build_offsets.size
   end
