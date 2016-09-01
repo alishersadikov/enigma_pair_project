@@ -18,9 +18,7 @@ class Crack
     characters = @encryptor.characters
     rotations = zip_characters(string).map.with_index do |char, index|
       characters.index(char[1]) - characters.index(char[0])
-      # require 'pry'; binding.pry
     end
-
     adjusted_rotations(string, rotations)
   end
 
@@ -41,8 +39,7 @@ class Crack
     rotations = crack_rotations(string)
     decrypted_text = string.chars.map.with_index do |char, index|
       @encryptor.decrypt_letter(char, rotations[index % 4])
-    end
-    decrypted_text.join
+    end.join
   end
 
   def calculate_key(string)
@@ -51,19 +48,17 @@ class Crack
     key_array = zipped_array.map { |item|  item[0] - item[1] }
     key_array = key_array.map { |item|  item > 10 ? item : item + 88 }
     build_calculated_key_string(key_array)
-
   end
 
   def build_date_offsets
     date = OffsetGenerator.new(@date)
     offsets = date.build_offsets
   end
-# (num + 88).to_s : num.to_s
+
   def build_calculated_key_string(key_array)
-    adjusted = key_array.map { |num|  num.to_s.length == 1 ?  num.to_s.rjust(2, '0') : num.to_s}
+    adjusted = key_array.map { |num|  num.to_s.rjust(2, '0')}
     key_last_char = adjusted[-1][-1]
     key_four_char = adjusted.map { |num|  num[0] }.join
     @key = key_four_char + key_last_char
-    # require 'pry'; binding.pry
   end
 end

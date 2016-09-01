@@ -11,7 +11,9 @@
 
    def build_key_array
      @digits = generate_random_digits
+
      key_array = [@digits[0..1], @digits[1..2], @digits[2..3], @digits[3..4]]
+
      key_array.map { |digit| digit.to_i }
    end
  end
