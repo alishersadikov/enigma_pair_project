@@ -23,14 +23,6 @@ class EncryptorTest < Minitest::Test
     assert_equal "e", cipher_for_current_rotation["d"]
   end
 
-  def test_it_encrypts_one_character_with_single_rotation
-    assert_equal "b", encryptor.encrypt_letter("a", 1)
-  end
-
-  def test_it_encrypts_one_character_with_bigger_rotation
-    assert_equal "9", encryptor.encrypt_letter("1", 8)
-  end
-
   def test_it_builds_rotations_array_based_on_generated_key_and_offsets
     assert_instance_of Array, encryptor.build_rotations
     assert_equal 4, encryptor.build_rotations.count
@@ -56,13 +48,12 @@ class EncryptorTest < Minitest::Test
     assert_equal [15, 27, 39, 51], encryptor.build_rotations
   end
 
-  def test_it_encrypts_string_when_key_and_date_passed_in
-    encryptor = Encryptor.new("12345", "090116")
-    assert_equal "P^1>@MZh2", encryptor.encrypt_string("ABcd1234!")
+  def test_it_encrypts_one_character_with_single_rotation
+    assert_equal "b", encryptor.encrypt_letter("a", 1)
   end
 
-  def test_it_encrypts_string_when_key_and_date_not_given
-    assert_instance_of String, encryptor.encrypt_string("ABcd1234!")
+  def test_it_encrypts_one_character_with_bigger_rotation
+    assert_equal "9", encryptor.encrypt_letter("1", 8)
   end
 
   def test_it_decrypts_letter_with_given_key_and_date
@@ -70,15 +61,28 @@ class EncryptorTest < Minitest::Test
     assert_equal "b", encryptor.decrypt_letter("c", 1)
   end
 
-  def test_it_decrypts_string_with_given_key_and_date
+  def test_it_encrypts_string_with_given_key_and_date
     encryptor = Encryptor.new("12345", "090116")
     assert_equal "P^1>@MZh2", encryptor.encrypt_string("ABcd1234!")
+  end
+
+  def test_it_decrypts_string_with_given_key_and_date
+    encryptor = Encryptor.new("12345", "090116")
     assert_equal "ABcd1234!", encryptor.decrypt_string("P^1>@MZh2")
   end
-  
+
+  def test_it_encrypts_string_when_key_and_date_not_given
+    assert_instance_of String, encryptor.encrypt_string("ABcd1234!")
+  end
+
   def test_it_decrypts_with_todays_date_when_key_is_given_but_date_not_given
     encryptor = Encryptor.new("12345")
-    assert_equal "P^1>@MZh2", encryptor.encrypt_string("ABcd1234!")
     assert_equal "ABcd1234!", encryptor.decrypt_string("P^1>@MZh2")
   end
+
+  # def test_it_does
+  #   encryptor = Encryptor.new("58294")
+  #   assert_equal "3c?qVy=$Yq=.Ey9qVq8z`u1 `,PqRbP:", encryptor.encrypt_string("Never trust a person who ..end..")
+  #   assert_equal "", encryptor.decrypt_string("3c?qVy=$Yq=.Ey9qVq8z`u1 `,PqRbP:")
+  # end
 end

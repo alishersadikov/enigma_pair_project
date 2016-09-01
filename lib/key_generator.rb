@@ -6,7 +6,7 @@
    end
 
    def generate_random_digits
-     @digits != nil ? @digits : @digits = (0..9).to_a.sample(5).join.to_s
+     @digits != nil ? @digits : @digits = (1..9).to_a.sample(5).join.to_s
    end
 
    def build_key_array

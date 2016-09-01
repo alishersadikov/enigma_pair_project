@@ -42,10 +42,13 @@ class Encryptor
   end
 
   def build_rotations
-    key_nil?  ? keys = generate_key_array : keys = generate_key_array(@key)
-    date_nil? ? offsets = generate_offsets_array : offsets = generate_offsets_array(@date)
+    key_nil?  ? keys = generate_key_array : keys = generate_key_array(key)
+    date_nil? ? offsets = generate_offsets_array : offsets = generate_offsets_array(date)
     rotations = keys.zip(offsets)
+
     rotations.map { |item|  item[0] + item[1] }
+    # require 'pry'; binding.pry
+    # rotations.map { |rotation|  rotation = (rotation - 88) if rotation > 88}
   end
 
   def encrypt_letter(letter, rotation)
@@ -62,7 +65,8 @@ class Encryptor
   end
 
   def decrypt_letter(letter, rotation)
-    rotation = (rotation - 88).abs
+    rotation = (88 - rotation) if rotation < 88
+    rotation = (88 - (rotation - 88)) if rotation >= 88
     cipher_for_current_rotation = cipher(rotation)
     cipher_for_current_rotation[letter]
   end

@@ -1,5 +1,6 @@
+require 'date'
 class OffsetGenerator
-  attr_reader :date
+  attr_accessor :date
 
   def initialize(date = nil)
     @date = date

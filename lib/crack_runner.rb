@@ -1,5 +1,5 @@
 require './lib/encryptor'
-require  './lib/crack'
+require './lib/crack'
 
 
 # $ ruby ./lib/crack.rb encrypted.txt cracked.txt 030415
